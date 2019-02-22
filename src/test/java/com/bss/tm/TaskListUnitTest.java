@@ -139,12 +139,15 @@ public class TaskListUnitTest {
 		Gson gson = new Gson();
 		String json = gson.toJson(task);
 
+		ResponseEntity r=new ResponseEntity<>(task, HttpStatus.OK);
+		when(taskListController.modifyTaskList(Matchers.any(TaskList.class), Matchers.anyLong())).thenReturn(r);
 		mvc.perform(put("/taskList/1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON)
 				.characterEncoding("UTF-8")
 				.content(json))
 		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.title", is("titleMockito")))
 		.andDo(print());
 	}
 	

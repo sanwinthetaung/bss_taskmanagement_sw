@@ -94,7 +94,7 @@ public class TaskUnitTest {
 		Gson gson = new Gson();
 		String json = gson.toJson(task);
 
-		ResponseEntity r=new ResponseEntity<>(HttpStatus.CREATED);
+		ResponseEntity r=new ResponseEntity<>(task, HttpStatus.CREATED);
 		when(taskController.addTask(Matchers.anyLong(), Matchers.any(Task.class))).thenReturn(r);
 		mvc.perform(post("/task/1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -114,6 +114,8 @@ public class TaskUnitTest {
 		Gson gson = new Gson();
 		String json = gson.toJson(task);
 
+		ResponseEntity r=new ResponseEntity<>(task, HttpStatus.OK);
+		when(taskController.modifyTask(Matchers.any(Task.class), Matchers.anyLong())).thenReturn(r);
 		mvc.perform(put("/task/1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON)
