@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +47,7 @@ public class TaskController {
 	 */
 	@GetMapping("/task/all")
 	public ResponseEntity<?> getAllTask() {
-		log.info("*** getAllTask ***");
+//		log.info("*** getAllTask ***");
 
 		List<Task> taskList = taskService.getAll();
 		if (taskList == null) {
@@ -66,7 +69,8 @@ public class TaskController {
 	 */
 	@GetMapping("/task/{id}")
 	public ResponseEntity<?> getTaskById(@PathVariable Long id) {
-		log.info("*** getTaskById ***");
+//		log.info("*** getTaskById ***");
+		
 		Task task = taskService.getTaskById(id);
 		if (task == null) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -90,7 +94,8 @@ public class TaskController {
 	 */
 	@GetMapping("/task/{taskListId}/{id}")
 	public ResponseEntity<?> getTaskByTaskListIdAndId(@PathVariable Long taskListId, @PathVariable Long id) {
-		log.info("*** getTaskByTaskListIdAndId ***");
+//		log.info("*** getTaskByTaskListIdAndId ***");
+		
 		Task task = taskService.getTaskById(id);
 		if (task == null) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -113,7 +118,7 @@ public class TaskController {
 	 */
 	@PostMapping("/task/{taskListId}")
 	public ResponseEntity<?> addTask(@PathVariable Long taskListId, @RequestBody Task task) {
-		log.info("*** addTask ***");
+//		log.info("*** addTask ***");
 		
 		TaskList parent = taskListService.getTaskById(taskListId);
 		if (parent == null) {
@@ -123,7 +128,8 @@ public class TaskController {
 		task.setTaskListId(taskListId);
 		Long id = taskService.insertTask(task);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(id).toUri();
 
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
 	}
@@ -142,7 +148,7 @@ public class TaskController {
 	 */
 	@PutMapping("/task/{id}")
 	public ResponseEntity<?> modifyTask(@RequestBody Task task, @PathVariable Long id) {
-		log.info("*** modifyTask ***");
+//		log.info("*** modifyTask ***");
 
 		Task pre = taskService.getTaskById(id);
 		if (pre == null) {
@@ -168,7 +174,8 @@ public class TaskController {
 	 */
 	@DeleteMapping("/task/{id}")
 	public ResponseEntity<?> deleteTaskLogical(@PathVariable Long id) {
-		log.info("*** deleteTaskLogical ***");
+//		log.info("*** deleteTaskLogical ***");
+		
 		Task pre = taskService.getTaskById(id);
 		if (pre == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

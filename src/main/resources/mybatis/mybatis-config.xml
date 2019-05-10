@@ -7,7 +7,7 @@
 	</typeAliases>
 	
     <mappers>
-        <mapper resource="TaskMapper.xml"/>
-         <mapper resource="TaskListMapper.xml"/>
+        <mapper resource="/mapper/TaskMapper.xml"/>
+         <mapper resource="/mapper.TaskListMapper.xml"/>
     </mappers>
 </configuration>

@@ -3,6 +3,9 @@ package com.bss.tm.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,16 +24,19 @@ public class TaskListServiceImpl implements TaskListService {
 	@Autowired
 	private TaskMapper taskMapper;
 
+	@Cacheable(value="taskList")
 	@Override
 	public List<TaskList> getAll(){
 		return taskListMapper.findAll();
 	}
 	
+	@Cacheable(value="taskList", key = "#id")
 	@Override
 	public TaskList getTaskById(Long id) {
 		return taskListMapper.selectTaskListById(id);
 	}
 	
+	@CachePut(value="taskList")
 	@Override
 	public Long insertTaskList(TaskList bean) {
 		bean.setIsDeleted(Boolean.FALSE);
@@ -38,6 +44,12 @@ public class TaskListServiceImpl implements TaskListService {
 		return bean.getId();
 	}
 	
+	/*
+	 * @CacheEvict(value="taskList", key = "#id")
+	 * 
+	 * @Cacheable(value = "taskList", key = "#id")
+	 */
+	@CachePut(value="taskList")
 	@Override
     public int updateTaskList(TaskList newTask, Long id) {
 		TaskList task = taskListMapper.selectTaskListById(id);
@@ -53,6 +65,7 @@ public class TaskListServiceImpl implements TaskListService {
 		return taskListMapper.updateTaskList(task);
 	}
 	
+	@CacheEvict(value = "taskList", key = "#id")
 	@Override
 	public void deleteTaskListLogical(Long id) {
 		TaskList taskList = taskListMapper.selectTaskListById(id);

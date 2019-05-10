@@ -9,7 +9,6 @@ import com.bss.tm.model.Task;
 import com.bss.tm.model.TaskList;
 
 @Mapper
-@Repository
 public interface TaskListMapper {
 	
 	public List<TaskList> findAll();
