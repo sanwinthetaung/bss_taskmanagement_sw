@@ -22,7 +22,7 @@
         	, TASKLIST_ID
         	, CREATED_DATE
         	, UPDATED_DATE
-        FROM Task
+        FROM
         WHERE isdeleted = 0
 	</select>
 	

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.bss.tm.exception.BssException;
 import com.bss.tm.model.Task;
 import com.bss.tm.service.TaskService;
 
@@ -21,7 +22,7 @@ public class TaskServiceUnitTest {
 	private TaskService taskService;
 	
 	@Test
-	public void getTaskAll() {
+	public void getTaskAll() throws BssException{
 		List<Task> list = taskService.getAll();
 		assertThat(list).isNotNull().isNotEmpty();
 	}

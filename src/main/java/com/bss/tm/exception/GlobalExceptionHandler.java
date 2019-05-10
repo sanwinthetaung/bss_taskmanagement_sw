@@ -9,6 +9,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -17,7 +18,7 @@ import com.bss.tm.utils.ErrorResponse;
 
 @Primary
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
@@ -53,5 +54,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		ErrorResponse response = new ErrorResponse(400, "Request Method not supported.");
     	return new ResponseEntity<Object>(response,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BssException.class)
+	public ResponseEntity<Object> handlerCustomException(BssException e) {
+		ErrorResponse response = new ErrorResponse(500, "Something went wrong.");
+		return new ResponseEntity<Object>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

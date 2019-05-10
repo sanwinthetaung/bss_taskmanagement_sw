@@ -6,9 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.bss.tm.exception.BssException;
 import com.bss.tm.model.Task;
 import com.bss.tm.model.TaskList;
 import com.bss.tm.service.TaskListService;
@@ -46,7 +44,7 @@ public class TaskController {
 	 * 	<p>{{@link ResponseEntity}<>({@link HttpStatus.NO_CONTENT})}</p>
 	 */
 	@GetMapping("/task/all")
-	public ResponseEntity<?> getAllTask() {
+	public ResponseEntity<?> getAllTask() throws BssException {
 //		log.info("*** getAllTask ***");
 
 		List<Task> taskList = taskService.getAll();

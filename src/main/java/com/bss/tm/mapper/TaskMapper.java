@@ -10,13 +10,14 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
+import com.bss.tm.exception.BssException;
 import com.bss.tm.model.Task;
 
 @Mapper
 public interface TaskMapper {
 	
 	//@Select("SELECT * FROM TASK WHERE ISDELETED = 0")
-	public List<Task> findAll();
+	public List<Task> findAll() throws BssException;
 	
 	
 //	@Select("SELECT * FROM TASK WHERE ISDELETED = 0 AND ID = #{ID}")

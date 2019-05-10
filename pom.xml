@@ -61,6 +61,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- redis:lettuce dependency -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,11 +81,18 @@
 		<!-- <dependency> <groupId>redis.clients</groupId> <artifactId>jedis</artifactId> 
 			<type>jar</type> </dependency> -->
 
+		<!-- spring dev tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- elastic search -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elastic</artifactId>
+		</dependency> -->
 	</dependencies>
 
 	<build>
